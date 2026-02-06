@@ -6,9 +6,12 @@
     <title>Título de la nueva página</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link rel="icon" href="./images/favicon.png" />
-    <link rel="stylesheet" crossorigin href="./assets/main-2GvZkyfD.css">
+    <script type="module" crossorigin src="./assets/main-DJH3-Zj8.js"></script>
+    <script type="module" crossorigin src="./js/main.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/main-Dz8fEnaQ.css">
   </head>
   <body>
+  <body class="noticias">
     <div class="page">
       <header>
     <nav class="navbar">
@@ -22,15 +25,22 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="ultimasactuaciones.html">Últimas Actuaciones</a></li>
+            <li><a href="noticias.html">Noticias</a></li>
             <li><a href="acerca.html">Acerca de</a></li>
         </ul>
     </nav>
 </header>
 
-      <main>
-        <!-- Contenido específico de la nueva página aquí -->
-        <p>Contenido de la nueva página.</p>
-      </main>
+      <section class="page-banner">
+        <div class="banner-content">
+          <h1>Noticias</h1>
+          <p>Actualidad y artículos del mundo hípico</p>
+        </div>
+      </section>
+      <section class="container">
+        <div class="news-grid" id="news-grid"></div>
+        <div id="news-paginator" class="news-paginator" style="text-align:center;margin:2em 0;"></div>
+      </section>
       <footer>
     <div class="footer-content">
         <p>&copy; 2026 El Otro Ángulo. Todos los derechos reservados.</p>
@@ -42,7 +52,6 @@
     </div>
 </footer>
 
-    </div>
-    <script src="./js/main.js"></script>
+    </div>
   </body>
 </html>

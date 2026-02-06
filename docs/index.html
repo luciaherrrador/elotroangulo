@@ -9,7 +9,9 @@
       rel="stylesheet"
     />
     <link rel="icon" href="./images/favicon.png" />
-    <link rel="stylesheet" crossorigin href="./assets/main-2GvZkyfD.css">
+    <script type="module" crossorigin src="./assets/main-DJH3-Zj8.js"></script>
+    <script type="module" crossorigin src="./js/main.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/main-Dz8fEnaQ.css">
   </head>
 
   <body>
@@ -26,6 +28,7 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Inicio</a></li>
             <li><a href="ultimasactuaciones.html">Últimas Actuaciones</a></li>
+            <li><a href="noticias.html">Noticias</a></li>
             <li><a href="acerca.html">Acerca de</a></li>
         </ul>
     </nav>
@@ -48,7 +51,14 @@
 
 <section class="container bg-light">
     <h2>Noticias y Artículos</h2>
-    <div class="news-list"></div>
+    <div class="news-carousel">
+        <button class="carousel-btn prev">&#10094;</button>
+        <div class="carousel-track news-list"></div>
+        <button class="carousel-btn next">&#10095;</button>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="noticias.html" class="btn-view">Ver todas las noticias</a>
+    </div>
 </section>
 
       <footer>
@@ -63,6 +73,5 @@
 </footer>
 
     </div>
-    <script src="./js/main.js"></script>
   </body>
 </html>
