@@ -1,0 +1,373 @@
+
+@use '../core/variables' as *;
+
+/* --- NOTICIAS CAROUSEL --- */
+.news-carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 32px auto;
+  padding: 24px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.carousel-btn {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: background 0.2s;
+}
+.carousel-btn.prev {
+  left: 0;
+}
+.carousel-btn.next {
+  right: 0;
+}
+.carousel-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: $font-main;
+}
+
+@media (max-width: 900px) {
+  .carousel-track {
+    gap: 12px;
+  }
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+}
+
+/* --- 1. RESET Y BASES --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: $font-main;
+}
+
+html, body {
+  overflow-x: hidden; /* Evita el scroll horizontal */
+  width: 100%;
+  min-height: 100vh;
+  background-color: $color-bg;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor global para limitar el ancho en pantallas grandes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 5%;
+}
+
+main { flex: 1; }
+
+.bg-light { background-color: #ffffff; }
+
+/* --- 2. NAVEGACIÓN --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background: $dark;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #e67e22;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s;
+
+    &:hover { color: $accent-start; }
+  }
+}
+
+/* --- 3. HERO SECTION --- */
+.hero {
+  width: 100%;
+  height: 50vh;
+  /* Usa tu imagen local hero.jpeg colocada en la carpeta /img */
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url('/images/hero.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 10px; }
+}
+
+/* --- 6. SECCIÓN NOTICIAS --- */
+/* Quitar estilos por defecto del enlace de noticia */
+.news-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.news-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid transparent;
+
+  /* Efecto Hover: La tarjeta se levanta y el borde cambia */
+  .news-link:hover & {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(243,156,18,0.08);
+    border: 1px solid rgba(243,156,18,0.22);
+  }
+
+  .news-content h3 {
+    color: #2c3e50;
+    transition: color 0.3s;
+
+    .news-link:hover & {
+      color: #e67e22; /* El título cambia a naranja al pasar el ratón */
+    }
+  }
+
+  /* Ajuste de imagen para que no se deforme */
+  img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+/* --- FOOTER ESTRECHO Y ALINEADO --- */
+footer {
+  background: $dark;
+  color: white;
+  padding: 15px 5%; /* Muy estrecho */
+  margin-top: 40px;
+  width: 100%;
+
+  /* El contenedor interno que organiza los dos bloques */
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Texto a la izquierda, Redes a la derecha */
+    align-items: center;
+  }
+
+  p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 0; /* Quitamos el margen para que esté centrado verticalmente */
+  }
+
+  .socials {
+    display: flex;
+    gap: 20px;
+
+    a {
+      color: #e67e22;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+
+      &:hover { color: white; }
+    }
+  }
+}
+
+/* --- AJUSTE RESPONSIVE PARA MÓVIL --- */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Se apilan uno arriba del otro */
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+/* --- 9. MEDIA QUERIES (MÓVIL) --- */
+@media (max-width: 768px) {
+  .navbar {
+    display: flex;
+    justify-content: space-between; /* Empuja logo a izq y menú a der */
+    align-items: center;
+    padding: 1rem 5%;
+    background: $dark;
+    position: relative; /* Importante para el menú desplegable */
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center;
+  }
+
+  .container { padding: 30px 5%; }
+
+  .news-item { flex-direction: column; text-align: center; }
+
+  .news-item img { width: 100%; height: 180px; }
+}
+
+/* --- ESTILOS HAMBURGUESA --- */
+.hamburger {
+  display: none; /* Oculto en PC */
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  gap: 5px;
+
+  span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+}
+
+/* --- RESPONSIVE NAVIGATION --- */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex; /* Aparece a la derecha automáticamente por el space-between */
+    order: 2;      /* Asegura que sea el segundo elemento visual */
+  }
+
+  .logo {
+    order: 1;      /* Asegura que sea el primero */
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: $dark;
+    position: absolute;
+    top: 100%;    /* Justo debajo del navbar */
+    left: 0;
+    z-index: 999;
+    padding: 20px 0;
+    border-top: 1px solid #333;
+
+    /* Clase que activaremos con JS */
+    &.active {
+      display: flex;
+    }
+
+    li {
+      margin: 15px 0;
+    }
+  }
+}
+
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+/* --- BANNER PARA PÁGINAS INTERNAS --- */
+.page-banner {
+  width: 100%;
+  height: 30vh; /* Altura más reducida que el Hero principal */
+  min-height: 200px;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url('/images/speed.jpeg');
+  background-size: cover;
+  background-position: center 30%; /* Ajusta la foto para que se vea la parte superior */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+
+  /* Imagen específica para la página Acerca De */
+  &.banner-acerca {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('/images/hipo.jpeg'); /* Pon aquí la ruta de tu foto */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .banner-content h1 {
+    font-size: 2.2rem;
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px;
+  }
+
+  .banner-content p {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+}
+
+/* Ajuste para móvil */
+@media (max-width: 768px) {
+  .page-banner {
+    height: 20vh;
+
+    .banner-content h1 {
+      font-size: 1.6rem;
+    }
+  }
+}
+  

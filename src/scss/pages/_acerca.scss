@@ -1,0 +1,48 @@
+@use '../core/variables' as *;
+
+/* --- SECCIÓN ACERCA DE --- */
+.about-section {
+  display: flex;
+  flex-direction: row; /* Fuerza imagen izquierda, texto derecha */
+  align-items: center;
+  gap: 50px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.about-image {
+  flex: 1;
+  min-width: 300px; /* Evita que la imagen se haga demasiado pequeña */
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: block;
+  }
+}
+
+.about-text {
+  flex: 1.2; /* Damos un poco más de espacio al texto */
+  min-width: 300px;
+
+  h2 {
+    color: #bb6d25;
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+}
+
+/* --- MEDIA QUERY PARA MÓVILES --- */
+@media (max-width: 768px) {
+  .about-section {
+    flex-direction: column; /* En móvil: imagen arriba, texto abajo */
+    text-align: center;
+    gap: 30px;
+  }
+
+  .about-image, .about-text {
+    min-width: 100%; /* Ocupan todo el ancho en móvil */
+  }
+}

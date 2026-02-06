@@ -1,0 +1,14 @@
+// fonts
+$font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+// colors
+$color-bg: #f4f7f6;
+$color-secondary: #999;
+$dark: #2f2f2f;
+$dark-hover: #4a4a4a;
+$accent-start: #c97e2a;
+$accent-end: #db9a3b;
+$accent: $accent-start;
+$accent-gradient: linear-gradient(90deg, $accent-start, $accent-end);
+$accent-muted-start: rgba(201,126,42,0.92);
+$accent-muted-end: rgba(219,154,59,0.8);
