@@ -1,4 +1,36 @@
 @use '../core/variables' as *;
+// Banner solo para la página de Noticias
+body.noticias .page-banner {
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('/images/pronos.jpeg') center 35%/cover no-repeat;
+  color: #fff;
+}
+// --- Paginador de noticias ---
+.news-paginator {
+  margin-top: 2em;
+  text-align: center;
+  .paginator-btn {
+    display: inline-block;
+    font-size: 1rem;
+    min-width: 2em;
+    min-height: 2em;
+    margin: 0 0.15em;
+    padding: 0.3em 0.7em;
+    border: none;
+    border-radius: 6px;
+    background: #f3e7d7;
+    color: #bb6d25;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(201,126,42,0.08);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+  }
+  .paginator-btn.active,
+  .paginator-btn:hover {
+    background: linear-gradient(90deg, #bb6d25 0%, #e6b980 100%);
+    color: #fff;
+    transform: scale(1.08);
+  }
+}
 
 .news-grid {
   display: grid;

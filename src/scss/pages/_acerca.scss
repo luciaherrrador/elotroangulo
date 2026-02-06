@@ -1,4 +1,14 @@
+
 @use '../core/variables' as *;
+/* --- MEDIA QUERY PARA TABLET --- */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .about-image img {
+    max-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+}
 
 /* --- SECCIÓN ACERCA DE --- */
 .about-section {

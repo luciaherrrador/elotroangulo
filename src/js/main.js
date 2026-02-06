@@ -1,65 +1,7 @@
 'use strict';
 
-/* --- 1. BASE DE DATOS DE PRONÓSTICOS ---
-   Cada vez que tengas un nuevo PDF, simplemente añade un bloque aquí arriba. */
-const listaPronosticos = [
-    {
-        fecha: "2026-01-12",
-        titulo: "Gran Premio de Madrid",
-        descripcion: "Análisis de las 6 carreras de la jornada.",
-        archivo: "2026-01-12.pdf"
-    },
-    {
-        fecha: "2026-01-10",
-        titulo: "Handicap de Invierno",
-        descripcion: "Especial sementales y debutantes.",
-        archivo: "2026-01-12.pdf"
-    },
-    {
-        fecha: "2026-01-05",
-        titulo: "Carrera de Reyes",
-        descripcion: "Pronósticos para la jornada inaugural del año.",
-        archivo: "2026-01-12.pdf"
-    }
-];
-
-const listaNoticias = [
-    {
-        titulo: "Nuevo récord en el Derby",
-        resumen: "Un análisis sobre la victoria histórica de ayer...",
-        fecha: "12 Enero, 2026",
-        imagen: "https://images.unsplash.com/photo-1534445867742-43195f401b6c?auto=format&fit=crop&w=300&q=80",
-        enlace:"https://www.hipodromodelazarzuela.es/"
-    },
-    {
-        titulo: "Preparativos para el Gran Premio",
-        resumen: "Los establos se preparan para la cita más importante del mes.",
-        fecha: "10 Enero, 2026",
-        imagen: "https://images.unsplash.com/photo-1534445867742-43195f401b6c?auto=format&fit=crop&w=300&q=80",
-        enlace:"https://www.france-galop.com/fr/hommes-chevaux/chevaux"
-    },
-    {
-        titulo: "Entrevista exclusiva: Jockey del año",
-        resumen: "Charlamos con el ganador del premio al mejor jockey de 2026 sobre sus retos y triunfos.",
-        fecha: "08 Enero, 2026",
-        imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80",
-        enlace:"https://www.turfclub.com/entrevista-jockey"
-    },
-    {
-        titulo: "La pista se renueva para 2026",
-        resumen: "El hipódromo estrena nuevo césped y tecnología para mejorar la experiencia de los caballos y espectadores.",
-        fecha: "05 Enero, 2026",
-        imagen: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=300&q=80",
-        enlace:"https://www.hipodromodelazarzuela.es/nueva-pista"
-    },
-    {
-        titulo: "Guía de apuestas para principiantes",
-        resumen: "Todo lo que necesitas saber para empezar a apostar en carreras de caballos de forma responsable.",
-        fecha: "03 Enero, 2026",
-        imagen: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80",
-        enlace:"https://www.turfclub.com/guia-apuestas"
-    }
-];
+import { listaActuaciones } from './actuaciones.js';
+import { listaNoticias } from './noticias.js';
 /* --- 2. FUNCIONES DE LÓGICA --- */
 
 // Función para formatear la fecha de YYYY-MM-DD a "12 de enero de 2026"
@@ -71,22 +13,46 @@ function formatearFecha(fechaStr) {
 // Función que dibuja las tarjetas en el grid
 function renderizarPronosticos() {
     const contenedor = document.getElementById('forecast-grid');
+    const paginador = document.getElementById('actuaciones-paginator');
     const contenedorInicio = document.getElementById('recent-forecasts'); // Para la Landing
 
-    // Si estamos en la página de PRONÓSTICOS (grid completo)
+    // PAGINADOR POR MESES
     if (contenedor) {
-        contenedor.innerHTML = "";
-        listaPronosticos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-        listaPronosticos.forEach(item => {
-            contenedor.innerHTML += crearCard(item);
-        });
+        // Obtener lista de meses únicos (YYYY-MM)
+        const mesesUnicos = Array.from(new Set(listaActuaciones.map(a => a.fecha.slice(0,7)))).sort((a, b) => b.localeCompare(a));
+        let mesActual = mesesUnicos[0];
+        const mesesCorto = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+        function renderMes(mes) {
+            contenedor.innerHTML = "";
+            listaActuaciones
+                .filter(a => a.fecha.startsWith(mes))
+                .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+                .forEach(item => {
+                    contenedor.innerHTML += crearCard(item);
+                });
+            if (paginador) {
+                paginador.innerHTML = '';
+                mesesUnicos.forEach(m => {
+                    const btn = document.createElement('button');
+                    const [y, mo] = m.split('-');
+                    const mesNombre = mesesCorto[parseInt(mo,10)-1] || mo;
+                    btn.textContent = `${mesNombre}/${y}`;
+                    btn.className = 'paginator-btn' + (m === mes ? ' active' : '');
+                    btn.onclick = () => {
+                        mesActual = m;
+                        renderMes(mesActual);
+                    };
+                    paginador.appendChild(btn);
+                });
+            }
+        }
+        renderMes(mesActual);
     }
 
     // Si estamos en la página de INICIO (solo mostrar los 3 últimos)
     if (contenedorInicio) {
         contenedorInicio.innerHTML = "";
-        const ultimosTres = listaPronosticos
+        const ultimosTres = listaActuaciones
             .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
             .slice(0, 3);
 
@@ -111,14 +77,22 @@ function crearCard(item) {
 /* --- 3. INICIALIZACIÓN --- */
 
 function renderizarNoticias() {
-    // Para la página de noticias
+    // Para la página de noticias con paginador
     const grid = document.getElementById('news-grid');
-    if (grid) {
+    const paginador = document.getElementById('news-paginator');
+    const noticiasPorPagina = 6;
+    let paginaActual = 1;
+
+    function mostrarPagina(pagina) {
+        if (!grid) return;
         grid.innerHTML = '';
-        listaNoticias.forEach(noticia => {
+        const inicio = (pagina - 1) * noticiasPorPagina;
+        const fin = inicio + noticiasPorPagina;
+        const noticiasPagina = listaNoticias.slice(inicio, fin);
+        noticiasPagina.forEach(noticia => {
+            // Usar miniatura del sitio (thum.io)
             grid.innerHTML += `
                 <a href="${noticia.enlace}" class="noticia-card" target="_blank" rel="noopener">
-                    <img src="${noticia.imagen}" alt="${noticia.titulo}" class="noticia-img" />
                     <div class="noticia-content">
                         <div class="noticia-title">${noticia.titulo}</div>
                         <div class="noticia-resumen">${noticia.resumen}</div>
@@ -127,7 +101,22 @@ function renderizarNoticias() {
                 </a>
             `;
         });
+        if (paginador) {
+            const totalPaginas = Math.ceil(listaNoticias.length / noticiasPorPagina);
+            paginador.innerHTML = '';
+            for (let i = 1; i <= totalPaginas; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = 'paginator-btn' + (i === pagina ? ' active' : '');
+                btn.onclick = () => {
+                    paginaActual = i;
+                    mostrarPagina(paginaActual);
+                };
+                paginador.appendChild(btn);
+            }
+        }
     }
+    if (grid) mostrarPagina(paginaActual);
     // Para la home (listado clásico)
     // Carrusel para la home
     const carouselTrack = document.querySelector('.news-carousel .carousel-track');
@@ -137,7 +126,6 @@ function renderizarNoticias() {
             carouselTrack.innerHTML += `
                 <a href="${noticia.enlace}" class="news-link" target="_blank">
                     <article class="news-item">
-                        <img src="${noticia.imagen}" alt="${noticia.titulo}">
                         <div class="news-content">
                             <h3>${noticia.titulo}</h3>
                             <p>${noticia.resumen}</p>
