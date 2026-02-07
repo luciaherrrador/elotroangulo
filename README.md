@@ -1,8 +1,19 @@
-![Adalab](https://beta.adalab.es/resources/images/adalab-logo-155x61-bg-white.png)
 
-# Adalab web starter kit
+Este proyecto web en proceso de construcción dedicada a la recopilación y presentación de información relevante sobre carreras de caballos.
 
-Ahoy! Este es nuestro Starter Kit creado en **node y vite**. ¿Y qué es un Starter kit? Pues es una **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
+La plataforma reúne datos clave como:
+
+📊 Últimas actuaciones de caballos en competiciones recientes
+
+🏁 Resultados técnicos de las carreras, incluyendo clasificaciones y detalles de cada prueba
+
+📰 Noticias y artículos de interés relacionados con el mundo de las carreras de caballos
+
+El objetivo es centralizar información actualizada y estructurada para facilitar el análisis, seguimiento y consulta tanto a aficionados como a personas interesadas en el ámbito hípico.
+
+Actualmente el proyecto se encuentra en desarrollo activo, por lo que algunas funcionalidades y secciones pueden estar incompletas o sujetas a cambios.
+
+Creado en **node y vite**.  una **plantilla de proyecto con funcionalidades preinstaladas y preconfiguradas**.
 
 Este Kit incluye un motor de plantillas HTML, el preprocesador SASS y un servidor local y muchas cosas más. El Kit nos ayuda a trabajar más cómodamente, nos automatiza tareas.
 
@@ -122,4 +133,4 @@ src
 -->
 ## Falta algo?
 
-Echas de menos que el kit haga algo en concreto? Pidelo sin problema a través de las issues o si te animas a mejorarlo mándanos un PR :)
+
